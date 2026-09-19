@@ -6,7 +6,7 @@ reserved for *information* — never decoration. Generic primitives (tabs,
 dialog, switch, slider, fields, …) plus file-sharing-specific elements
 (search results, transfers, chat, connection status).
 
-- No build step, no runtime dependency.
+- No build.
 - Works with plain CSS, Tailwind CSS v3/v4, and PandaCSS / park-ui.
 - Compact controls, 1px borders, square-ish corners, monospace data.
 
