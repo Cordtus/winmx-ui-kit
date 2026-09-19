@@ -1,0 +1,507 @@
+/* =========================================================================
+   WinMX theme-kit — core stylesheet
+   Pure black base, saturated neon for information only.
+   Drop in as-is, or pair with the Tailwind / Panda adapters.
+   ========================================================================= */
+
+:root {
+  /* WinMX dark base */
+  --mx-black: #000000;
+  --mx-bg: #000000;
+  --mx-panel: #080808;
+  --mx-border: #404040;
+  --mx-border-subtle: #202020;
+  --mx-hover: #001010;
+
+  /* Text */
+  --mx-text: #FFFFFF;
+  --mx-text-secondary: #C0C0C0;
+  --mx-text-disabled: #808080;
+
+  /* Classic WinMX neon palette */
+  --mx-green: #00FF00;
+  --mx-cyan: #00FFFF;
+  --mx-blue: #0080FF;
+  --mx-yellow: #FFFF00;
+  --mx-orange: #FF8000;
+  --mx-red: #FF0000;
+  --mx-magenta: #FF00FF;
+  --mx-purple: #8000FF;
+  --mx-olive: #808000;
+
+  /* Semantic aliases */
+  --mx-success: var(--mx-green);
+  --mx-info: var(--mx-cyan);
+  --mx-link: var(--mx-blue);
+  --mx-warning: var(--mx-yellow);
+  --mx-notice: var(--mx-orange);
+  --mx-danger: var(--mx-red);
+  --mx-accent: var(--mx-magenta);
+  --mx-special: var(--mx-purple);
+  --mx-legacy: var(--mx-olive);
+  --mx-focus: var(--mx-cyan);
+  --mx-selection-bg: var(--mx-cyan);
+  --mx-selection-fg: var(--mx-black);
+
+  /* Shape / type — compact, near-square, no soft SaaS surfaces */
+  --mx-font-ui: Tahoma, Verdana, "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mx-font-mono: "Lucida Console", Consolas, "Courier New", monospace;
+  --mx-radius: 2px;
+  --mx-border-width: 1px;
+  --mx-font-size: 12px;
+  --mx-line-height: 1.45;
+}
+
+/* =========================================================================
+   App scope — add .mx-app to the root container.
+   Nothing is applied to bare elements outside this scope.
+   ========================================================================= */
+
+.mx-app {
+  background: var(--mx-bg);
+  color: var(--mx-text);
+  font-family: var(--mx-font-ui);
+  font-size: var(--mx-font-size);
+  line-height: var(--mx-line-height);
+  color-scheme: dark;
+  scrollbar-color: var(--mx-border) var(--mx-black);
+  scrollbar-width: thin;
+}
+
+.mx-app ::selection {
+  background: var(--mx-selection-bg);
+  color: var(--mx-selection-fg);
+}
+
+.mx-app ::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+.mx-app ::-webkit-scrollbar-track {
+  background: var(--mx-black);
+  border-left: 1px solid var(--mx-border-subtle);
+}
+.mx-app ::-webkit-scrollbar-thumb {
+  background: var(--mx-border);
+  border: 2px solid var(--mx-black);
+}
+.mx-app ::-webkit-scrollbar-thumb:hover {
+  background: var(--mx-text-disabled);
+}
+
+.mx-mono {
+  font-family: var(--mx-font-mono);
+}
+
+/* Optional WinMX 3D bevel border */
+.mx-bevel {
+  box-shadow: inset 1px 1px 0 #606060, inset -1px -1px 0 var(--mx-black);
+}
+
+.mx-divider {
+  border: 0;
+  border-top: var(--mx-border-width) solid var(--mx-border);
+}
+
+/* =========================================================================
+   Buttons
+   ========================================================================= */
+
+.mx-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 3px 10px;
+  font-family: inherit;
+  font-size: var(--mx-font-size);
+  line-height: 1.3;
+  background: var(--mx-panel);
+  color: var(--mx-text-secondary);
+  border: var(--mx-border-width) solid var(--mx-border);
+  border-radius: var(--mx-radius);
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.1s ease, border-color 0.1s ease, background-color 0.1s ease;
+}
+.mx-btn:hover {
+  color: var(--mx-text);
+  border-color: var(--mx-cyan);
+}
+.mx-btn:active {
+  color: var(--mx-black);
+  background: var(--mx-cyan);
+  border-color: var(--mx-cyan);
+}
+.mx-btn:focus-visible {
+  outline: 1px solid var(--mx-focus);
+  outline-offset: 1px;
+}
+.mx-btn:disabled,
+.mx-btn[aria-disabled="true"] {
+  color: var(--mx-text-disabled);
+  background: var(--mx-black);
+  border-color: var(--mx-border);
+  cursor: not-allowed;
+}
+
+.mx-btn--primary {
+  color: var(--mx-black);
+  background: var(--mx-green);
+  border-color: var(--mx-green);
+}
+.mx-btn--primary:hover {
+  color: var(--mx-black);
+  border-color: var(--mx-green);
+  filter: brightness(1.15);
+}
+.mx-btn--primary:active {
+  filter: brightness(0.85);
+}
+
+.mx-btn--danger {
+  color: var(--mx-text);
+  background: var(--mx-panel);
+  border-color: var(--mx-red);
+}
+.mx-btn--danger:hover {
+  color: var(--mx-text);
+  background: var(--mx-red);
+  border-color: var(--mx-red);
+}
+.mx-btn--danger:active {
+  filter: brightness(0.85);
+}
+
+.mx-btn--ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--mx-text-secondary);
+}
+.mx-btn--ghost:hover {
+  color: var(--mx-cyan);
+  border-color: transparent;
+}
+
+.mx-btn--sm {
+  padding: 1px 6px;
+  font-size: 11px;
+}
+
+/* =========================================================================
+   Inputs
+   ========================================================================= */
+
+.mx-input,
+.mx-select,
+.mx-textarea {
+  display: block;
+  width: 100%;
+  padding: 3px 6px;
+  font-family: inherit;
+  font-size: var(--mx-font-size);
+  line-height: 1.4;
+  color: var(--mx-text);
+  background: var(--mx-black);
+  border: var(--mx-border-width) solid var(--mx-border);
+  border-radius: var(--mx-radius);
+}
+.mx-textarea {
+  resize: vertical;
+  min-height: 4.5em;
+}
+.mx-input::placeholder,
+.mx-textarea::placeholder {
+  color: var(--mx-text-disabled);
+}
+.mx-input:focus,
+.mx-select:focus,
+.mx-textarea:focus {
+  outline: none;
+  border-color: var(--mx-focus);
+  box-shadow: 0 0 0 1px var(--mx-focus);
+}
+.mx-input:disabled,
+.mx-select:disabled,
+.mx-textarea:disabled {
+  color: var(--mx-text-disabled);
+  border-color: var(--mx-border-subtle);
+  cursor: not-allowed;
+}
+
+.mx-app input[type="checkbox"],
+.mx-app input[type="radio"],
+.mx-app input[type="range"] {
+  accent-color: var(--mx-cyan);
+}
+
+.mx-label {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--mx-text-secondary);
+}
+
+/* =========================================================================
+   Panels
+   ========================================================================= */
+
+.mx-panel {
+  background: var(--mx-panel);
+  border: var(--mx-border-width) solid var(--mx-border);
+}
+.mx-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 3px 8px;
+  background: var(--mx-black);
+  border-bottom: var(--mx-border-width) solid var(--mx-border);
+  color: var(--mx-text-secondary);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.mx-panel__body {
+  padding: 8px;
+}
+
+/* =========================================================================
+   Tables / file listings
+   ========================================================================= */
+
+.mx-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--mx-black);
+  color: var(--mx-text);
+  font-family: var(--mx-font-mono);
+  font-size: 12px;
+}
+.mx-table thead th {
+  padding: 3px 8px;
+  text-align: left;
+  font-weight: normal;
+  color: var(--mx-text-secondary);
+  background: var(--mx-panel);
+  border-bottom: var(--mx-border-width) solid var(--mx-border);
+  white-space: nowrap;
+}
+.mx-table td {
+  padding: 2px 8px;
+  border-bottom: var(--mx-border-width) solid var(--mx-border-subtle);
+  vertical-align: middle;
+}
+.mx-table tbody tr:hover {
+  background: var(--mx-hover);
+}
+.mx-table tbody tr.is-selected {
+  background: var(--mx-cyan);
+  color: var(--mx-black);
+}
+
+/* Data colour semantics inside listings */
+.mx-file {
+  color: var(--mx-text);
+}
+.mx-size,
+.mx-bitrate,
+.mx-sources {
+  color: var(--mx-cyan);
+}
+.mx-meta {
+  color: var(--mx-text-secondary);
+}
+.mx-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================================================
+   Search results
+   ========================================================================= */
+
+.mx-result--incomplete {
+  color: var(--mx-yellow);
+}
+.mx-result--extrasource {
+  color: var(--mx-cyan);
+}
+.mx-result--downloading {
+  color: var(--mx-blue);
+}
+.mx-result--unavailable {
+  color: var(--mx-red);
+}
+
+/* =========================================================================
+   Buttons/controls done above; progress bars
+   ========================================================================= */
+
+.mx-progress {
+  position: relative;
+  width: 100%;
+  height: 12px;
+  overflow: hidden;
+  background: var(--mx-black);
+  border: var(--mx-border-width) solid var(--mx-border);
+  border-radius: 0;
+}
+.mx-progress__fill {
+  height: 100%;
+  width: 0;
+  background: var(--mx-green);
+  transition: width 0.15s linear;
+}
+.mx-progress--cyan .mx-progress__fill {
+  background: var(--mx-cyan);
+}
+.mx-progress--yellow .mx-progress__fill {
+  background: var(--mx-yellow);
+}
+.mx-progress--red .mx-progress__fill {
+  background: var(--mx-red);
+}
+.mx-progress--indeterminate .mx-progress__fill {
+  width: 30%;
+  animation: mx-slide 1.2s ease-in-out infinite;
+}
+@keyframes mx-slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}
+
+/* =========================================================================
+   Badges & alerts
+   ========================================================================= */
+
+.mx-badge {
+  display: inline-block;
+  padding: 0 5px;
+  font-size: 10px;
+  line-height: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: var(--mx-border-width) solid currentColor;
+  color: var(--mx-text-secondary);
+  border-radius: var(--mx-radius);
+}
+.mx-badge--green { color: var(--mx-green); }
+.mx-badge--cyan { color: var(--mx-cyan); }
+.mx-badge--blue { color: var(--mx-blue); }
+.mx-badge--yellow { color: var(--mx-yellow); }
+.mx-badge--orange { color: var(--mx-orange); }
+.mx-badge--red { color: var(--mx-red); }
+.mx-badge--magenta { color: var(--mx-magenta); }
+.mx-badge--purple { color: var(--mx-purple); }
+.mx-badge--olive { color: var(--mx-olive); }
+
+.mx-alert {
+  display: block;
+  padding: 6px 8px;
+  background: var(--mx-black);
+  color: var(--mx-text);
+  border: var(--mx-border-width) solid var(--mx-border);
+  border-left-width: 3px;
+}
+.mx-alert--success { border-left-color: var(--mx-green); color: var(--mx-green); }
+.mx-alert--info { border-left-color: var(--mx-cyan); color: var(--mx-cyan); }
+.mx-alert--warning { border-left-color: var(--mx-yellow); color: var(--mx-yellow); }
+.mx-alert--notice { border-left-color: var(--mx-orange); color: var(--mx-orange); }
+.mx-alert--danger { border-left-color: var(--mx-red); color: var(--mx-red); }
+
+/* =========================================================================
+   Network / connection status
+   ========================================================================= */
+
+.mx-status { color: var(--mx-text-disabled); }
+.mx-status::before {
+  content: "\25CF";
+  margin-right: 5px;
+}
+.mx-status--connected { color: var(--mx-green); }
+.mx-status--connecting { color: var(--mx-yellow); }
+.mx-status--secondary { color: var(--mx-cyan); }
+.mx-status--primary { color: var(--mx-blue); }
+.mx-status--disconnected { color: var(--mx-red); }
+.mx-status--unknown { color: var(--mx-text-disabled); }
+
+/* =========================================================================
+   Transfers
+   ========================================================================= */
+
+.mx-xfer { color: var(--mx-text-secondary); }
+.mx-xfer--download { color: var(--mx-green); }
+.mx-xfer--upload { color: var(--mx-cyan); }
+.mx-xfer--queued { color: var(--mx-yellow); }
+.mx-xfer--connecting { color: var(--mx-blue); }
+.mx-xfer--paused { color: var(--mx-text-disabled); }
+.mx-xfer--complete { color: var(--mx-green); }
+.mx-xfer--failed { color: var(--mx-red); }
+.mx-xfer__peer { color: var(--mx-text); }
+.mx-xfer__stat { color: var(--mx-text-secondary); }
+
+/* =========================================================================
+   Chat
+   ========================================================================= */
+
+.mx-chat {
+  background: var(--mx-black);
+  color: var(--mx-text);
+  padding: 6px 8px;
+}
+.mx-chat--mono {
+  font-family: var(--mx-font-mono);
+}
+.mx-msg {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.mx-msg--user,
+.mx-msg--username { color: var(--mx-cyan); }
+.mx-msg--system { color: var(--mx-green); }
+.mx-msg--join { color: var(--mx-text-disabled); }
+.mx-msg--warning { color: var(--mx-yellow); }
+.mx-msg--error { color: var(--mx-red); }
+.mx-msg--link,
+.mx-link { color: var(--mx-blue); text-decoration: underline; }
+.mx-msg--mention { color: var(--mx-magenta); }
+.mx-msg--time { color: var(--mx-text-disabled); }
+.mx-msg--topic { color: var(--mx-yellow); }
+.mx-msg--bot { color: var(--mx-cyan); }
+.mx-msg--admin { color: var(--mx-orange); }
+
+/* Classic blinking block cursor */
+.mx-cursor::after {
+  content: "\2588";
+  color: var(--mx-green);
+  animation: mx-blink 1s steps(1) infinite;
+}
+@keyframes mx-blink {
+  50% { opacity: 0; }
+}
+
+/* =========================================================================
+   Colour helpers (for vanilla use; Tailwind/Panda users have utilities)
+   ========================================================================= */
+
+.mx-text-green { color: var(--mx-green); }
+.mx-text-cyan { color: var(--mx-cyan); }
+.mx-text-blue { color: var(--mx-blue); }
+.mx-text-yellow { color: var(--mx-yellow); }
+.mx-text-orange { color: var(--mx-orange); }
+.mx-text-red { color: var(--mx-red); }
+.mx-text-magenta { color: var(--mx-magenta); }
+.mx-text-purple { color: var(--mx-purple); }
+.mx-text-olive { color: var(--mx-olive); }
+.mx-text-white { color: var(--mx-text); }
+.mx-text-secondary { color: var(--mx-text-secondary); }
+.mx-text-disabled { color: var(--mx-text-disabled); }

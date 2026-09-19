@@ -1,0 +1,14 @@
+# Dev / agent context — kept local, never published
+dev-docs/
+AGENTS.md
+CLAUDE.md
+.cursor/
+.cursorrules
+.aider*
+.opencode/
+.github/copilot-instructions.md
+
+# Dependencies & artifacts
+node_modules/
+*.log
+.DS_Store

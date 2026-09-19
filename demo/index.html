@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WinMX theme kit — elements</title>
+    <link rel="stylesheet" href="../src/winmx.css" />
+    <style>
+      body { margin: 0; padding: 16px; }
+      .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+      .swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 4px; }
+      .sw { border: 1px solid var(--mx-border); padding: 6px 8px; font-family: var(--mx-font-mono); font-size: 11px; background: var(--mx-black); }
+      .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+      h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--mx-text-secondary); margin: 18px 0 6px; }
+    </style>
+  </head>
+  <body class="mx-app">
+    <h2>Palette</h2>
+    <div class="swatches">
+      <div class="sw mx-text-green">green #00FF00</div>
+      <div class="sw mx-text-cyan">cyan #00FFFF</div>
+      <div class="sw mx-text-blue">blue #0080FF</div>
+      <div class="sw mx-text-yellow">yellow #FFFF00</div>
+      <div class="sw mx-text-orange">orange #FF8000</div>
+      <div class="sw mx-text-red">red #FF0000</div>
+      <div class="sw mx-text-magenta">magenta #FF00FF</div>
+      <div class="sw mx-text-purple">purple #8000FF</div>
+      <div class="sw mx-text-olive">olive #808000</div>
+      <div class="sw mx-text-white">white #FFFFFF</div>
+      <div class="sw mx-text-secondary">secondary #C0C0C0</div>
+      <div class="sw mx-text-disabled">disabled #808080</div>
+    </div>
+
+    <h2>Buttons</h2>
+    <div class="row">
+      <button class="mx-btn">Default</button>
+      <button class="mx-btn mx-btn--primary">Primary</button>
+      <button class="mx-btn mx-btn--danger">Danger</button>
+      <button class="mx-btn mx-btn--ghost">Ghost</button>
+      <button class="mx-btn mx-btn--sm">Small</button>
+      <button class="mx-btn" disabled>Disabled</button>
+    </div>
+
+    <h2>Inputs</h2>
+    <div class="grid">
+      <label class="mx-label">Search<input class="mx-input" placeholder="filename.mp3" /></label>
+      <label class="mx-label">Field<select class="mx-select"><option>Any bitrate</option><option>320k</option></select></label>
+      <div class="row">
+        <label class="mx-text-secondary"><input type="checkbox" checked /> Audio</label>
+        <label class="mx-text-secondary"><input type="radio" name="n" checked /> Primary</label>
+        <label class="mx-text-secondary"><input type="radio" name="n" /> Secondary</label>
+      </div>
+    </div>
+
+    <h2>Progress</h2>
+    <div class="grid">
+      <div class="mx-progress"><div class="mx-progress__fill" style="width: 62%"></div></div>
+      <div class="mx-progress mx-progress--cyan"><div class="mx-progress__fill" style="width: 38%"></div></div>
+      <div class="mx-progress mx-progress--yellow"><div class="mx-progress__fill" style="width: 12%"></div></div>
+      <div class="mx-progress mx-progress--red"><div class="mx-progress__fill" style="width: 80%"></div></div>
+      <div class="mx-progress mx-progress--indeterminate"><div class="mx-progress__fill"></div></div>
+    </div>
+
+    <h2>Badges &amp; alerts</h2>
+    <div class="row">
+      <span class="mx-badge mx-badge--green">Online</span>
+      <span class="mx-badge mx-badge--cyan">Bot</span>
+      <span class="mx-badge mx-badge--yellow">Queued</span>
+      <span class="mx-badge mx-badge--orange">Notice</span>
+      <span class="mx-badge mx-badge--red">Failed</span>
+      <span class="mx-badge mx-badge--purple">Special</span>
+    </div>
+    <div class="grid" style="margin-top: 8px">
+      <div class="mx-alert mx-alert--success">Transfer complete.</div>
+      <div class="mx-alert mx-alert--info">Connected to secondary network.</div>
+      <div class="mx-alert mx-alert--warning">File is incomplete.</div>
+      <div class="mx-alert mx-alert--danger">Connection refused.</div>
+    </div>
+
+    <h2>Search results</h2>
+    <table class="mx-table">
+      <thead>
+        <tr><th>File</th><th class="mx-num">Size</th><th class="mx-num">Bitrate</th><th class="mx-num">Sources</th><th>State</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mx-file">track-one.mp3</td>
+          <td class="mx-size mx-num">4.2 MB</td>
+          <td class="mx-bitrate mx-num">320k</td>
+          <td class="mx-sources mx-num">12</td>
+          <td class="mx-meta">available</td>
+        </tr>
+        <tr>
+          <td class="mx-file mx-result--incomplete">partial.mp3</td>
+          <td class="mx-size mx-num">2.1 MB</td>
+          <td class="mx-bitrate mx-num">192k</td>
+          <td class="mx-sources mx-num">3</td>
+          <td class="mx-result--incomplete">incomplete local</td>
+        </tr>
+        <tr>
+          <td class="mx-file mx-result--extrasource">bonus.mp3</td>
+          <td class="mx-size mx-num">5.0 MB</td>
+          <td class="mx-bitrate mx-num">320k</td>
+          <td class="mx-sources mx-num">7</td>
+          <td class="mx-result--extrasource">extra source</td>
+        </tr>
+        <tr class="is-selected">
+          <td class="mx-file">selected.mp3</td>
+          <td class="mx-size mx-num">3.3 MB</td>
+          <td class="mx-bitrate mx-num">256k</td>
+          <td class="mx-sources mx-num">20</td>
+          <td>selected</td>
+        </tr>
+        <tr>
+          <td class="mx-file mx-result--downloading">active.mp3</td>
+          <td class="mx-size mx-num">6.7 MB</td>
+          <td class="mx-bitrate mx-num">320k</td>
+          <td class="mx-sources mx-num">1</td>
+          <td class="mx-result--downloading">downloading</td>
+        </tr>
+        <tr>
+          <td class="mx-file mx-result--unavailable">gone.mp3</td>
+          <td class="mx-size mx-num">—</td>
+          <td class="mx-bitrate mx-num">—</td>
+          <td class="mx-sources mx-num">0</td>
+          <td class="mx-result--unavailable">unavailable</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Network status</h2>
+    <div class="row">
+      <span class="mx-status mx-status--connected">Connected</span>
+      <span class="mx-status mx-status--connecting">Connecting</span>
+      <span class="mx-status mx-status--secondary">Secondary</span>
+      <span class="mx-status mx-status--primary">Primary</span>
+      <span class="mx-status mx-status--disconnected">Disconnected</span>
+      <span class="mx-status mx-status--unknown">Unknown</span>
+    </div>
+
+    <h2>Transfers</h2>
+    <table class="mx-table">
+      <tbody>
+        <tr><td class="mx-xfer mx-xfer--download">▼ Download</td><td class="mx-xfer__peer">track-one.mp3</td><td class="mx-xfer__stat">1.2 MB/s · 62%</td></tr>
+        <tr><td class="mx-xfer mx-xfer--upload">▲ Upload</td><td class="mx-xfer__peer">mix.flac</td><td class="mx-xfer__stat">240 kB/s · 18%</td></tr>
+        <tr><td class="mx-xfer mx-xfer--queued">… Queued</td><td class="mx-xfer__peer">live-set.mp3</td><td class="mx-xfer__stat">position 4</td></tr>
+        <tr><td class="mx-xfer mx-xfer--failed">✕ Failed</td><td class="mx-xfer__peer">broken.rar</td><td class="mx-xfer__stat">connection reset</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Chat</h2>
+    <div class="mx-panel">
+      <div class="mx-panel__header"><span>#music-room</span><span class="mx-msg--time">14:02</span></div>
+      <div class="mx-chat mx-chat--mono">
+        <p class="mx-msg"><span class="mx-msg--time">[14:00]</span> <span class="mx-msg--user">&lt;cordt&gt;</span> hey all</p>
+        <p class="mx-msg mx-msg--system">[14:00] cordt joined the room</p>
+        <p class="mx-msg mx-msg--join">[14:00] guest42 left the room</p>
+        <p class="mx-msg"><span class="mx-msg--user">&lt;bot&gt;</span> <span class="mx-msg--bot">sharing: track-one.mp3</span></p>
+        <p class="mx-msg mx-msg--topic">[14:01] Topic: lossless only, be kind</p>
+        <p class="mx-msg"><span class="mx-msg--admin">&lt;admin&gt;</span> keep it clean please</p>
+        <p class="mx-msg"><span class="mx-msg--user">&lt;neo&gt;</span> grab it here <span class="mx-msg--link">http://mx.local/track-one.mp3</span></p>
+        <p class="mx-msg mx-msg--mention">[14:02] you were mentioned by neo</p>
+        <p class="mx-msg mx-msg--warning">[14:02] slow uploader, queue is long</p>
+        <p class="mx-msg mx-msg--error">[14:02] user was kicked by admin</p>
+        <p class="mx-msg mx-cursor">waiting for file search to finish</p>
+      </div>
+    </div>
+  </body>
+</html>

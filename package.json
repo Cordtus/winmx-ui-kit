@@ -1,0 +1,35 @@
+{
+  "name": "winmx-theme-kit",
+  "version": "0.1.0",
+  "description": "WinMX-inspired dark/neon theme and UI element kit for Tailwind CSS and PandaCSS/park-ui.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "src",
+    "tailwind",
+    "panda",
+    "react",
+    "tokens.json",
+    "README.md"
+  ],
+  "exports": {
+    "./winmx.css": "./src/winmx.css",
+    "./tailwind/theme": "./tailwind/winmx-theme.css",
+    "./tailwind/preset": "./tailwind/winmx-preset.cjs",
+    "./panda/preset": "./panda/winmx-preset.ts",
+    "./react": "./react/index.tsx",
+    "./tokens.json": "./tokens.json"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "test": "node scripts/check-tokens.mjs"
+  }
+}

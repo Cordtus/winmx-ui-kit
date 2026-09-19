@@ -1,0 +1,49 @@
+/* Tailwind CSS v4 adapter.
+   Import this instead of a stylesheet import, then use e.g.
+   bg-mx-black, text-mx-cyan, border-mx-border, font-mx-mono. */
+@import "../src/winmx.css";
+
+@theme {
+  --color-mx-black: #000000;
+  --color-mx-bg: #000000;
+  --color-mx-panel: #080808;
+  --color-mx-border: #404040;
+  --color-mx-border-subtle: #202020;
+  --color-mx-hover: #001010;
+
+  --color-mx-text: #FFFFFF;
+  --color-mx-text-secondary: #C0C0C0;
+  --color-mx-text-disabled: #808080;
+
+  --color-mx-green: #00FF00;
+  --color-mx-cyan: #00FFFF;
+  --color-mx-blue: #0080FF;
+  --color-mx-yellow: #FFFF00;
+  --color-mx-orange: #FF8000;
+  --color-mx-red: #FF0000;
+  --color-mx-magenta: #FF00FF;
+  --color-mx-purple: #8000FF;
+  --color-mx-olive: #808000;
+
+  --font-mx-ui: Tahoma, Verdana, "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mx-mono: "Lucida Console", Consolas, "Courier New", monospace;
+
+  --radius-mx: 2px;
+
+  --animate-mx-blink: mx-blink 1s steps(1) infinite;
+  --animate-mx-slide: mx-slide 1.2s ease-in-out infinite;
+
+  @keyframes mx-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  @keyframes mx-slide {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(400%);
+    }
+  }
+}
