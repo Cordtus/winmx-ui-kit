@@ -1,9 +1,12 @@
+"use client";
+
 import * as React from "react";
 
 /* Thin React wrappers over the .mx-* classes in src/winmx.css.
    No styles are duplicated here — the stylesheet remains the source of truth.
    Requires the core stylesheet to be loaded and a `.mx-app` ancestor
-   (use <WinMXApp>). Build: this file is TSX source; see README for bundlers. */
+   (use <WinMXApp>). Build: this file is TSX source; see README for bundlers.
+   Only Tabs and Dialog hold state; everything else is presentational. */
 
 function cn(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(" ");
@@ -275,4 +278,242 @@ export function ChatMessage({
   ...props
 }: ChatMessageProps): React.ReactElement {
   return <p className={cn("mx-msg", kind && `mx-msg--${kind}`, className)} {...props} />;
+}
+
+/* -------------------------------------------------- Generic primitives */
+
+export interface TabItem {
+  id: string;
+  label: React.ReactNode;
+  content: React.ReactNode;
+  disabled?: boolean;
+}
+
+export interface TabsProps extends Omit<React.ComponentProps<"div">, "onChange"> {
+  tabs: TabItem[];
+  value?: string;
+  defaultValue?: string;
+  onValueChange?: (id: string) => void;
+}
+
+export function Tabs({
+  tabs,
+  value,
+  defaultValue,
+  onValueChange,
+  className,
+  ...props
+}: TabsProps): React.ReactElement {
+  const [internal, setInternal] = React.useState(defaultValue ?? tabs[0]?.id);
+  const active = value ?? internal;
+  const select = (id: string) => {
+    if (value === undefined) setInternal(id);
+    onValueChange?.(id);
+  };
+  const current = tabs.find((t) => t.id === active) ?? tabs[0];
+  return (
+    <div className={cn("mx-tabs", className)} {...props}>
+      <div className="mx-tablist" role="tablist">
+        {tabs.map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            role="tab"
+            id={`tab-${t.id}`}
+            aria-selected={active === t.id}
+            aria-controls={`panel-${t.id}`}
+            disabled={t.disabled}
+            className="mx-tab"
+            onClick={() => select(t.id)}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+      {current && (
+        <div
+          role="tabpanel"
+          id={`panel-${current.id}`}
+          aria-labelledby={`tab-${current.id}`}
+          className="mx-tabpanel"
+        >
+          {current.content}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export interface DisclosureProps extends Omit<React.ComponentProps<"details">, "title"> {
+  title: React.ReactNode;
+  defaultOpen?: boolean;
+}
+
+export function Disclosure({
+  title,
+  defaultOpen = false,
+  children,
+  className,
+  ...props
+}: DisclosureProps): React.ReactElement {
+  const ref = React.useRef<HTMLDetailsElement>(null);
+  React.useEffect(() => {
+    if (ref.current) ref.current.open = defaultOpen;
+  }, [defaultOpen]);
+  return (
+    <details ref={ref} className={cn("mx-disclosure", className)} {...props}>
+      <summary>{title}</summary>
+      <div className="mx-disclosure__body">{children}</div>
+    </details>
+  );
+}
+
+export interface DialogProps
+  extends Omit<React.ComponentProps<"dialog">, "open" | "onClose" | "onCancel" | "title"> {
+  open: boolean;
+  onClose?: () => void;
+  title?: React.ReactNode;
+  footer?: React.ReactNode;
+}
+
+export function Dialog({
+  open,
+  onClose,
+  title,
+  footer,
+  children,
+  className,
+  ...props
+}: DialogProps): React.ReactElement {
+  const ref = React.useRef<HTMLDialogElement>(null);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (open && !el.open) el.showModal();
+    else if (!open && el.open) el.close();
+  }, [open]);
+  return (
+    <dialog
+      ref={ref}
+      className={cn("mx-dialog", className)}
+      onClose={() => onClose?.()}
+      onCancel={() => onClose?.()}
+      {...props}
+    >
+      {title != null && <div className="mx-dialog__header">{title}</div>}
+      <div className="mx-dialog__body">{children}</div>
+      {footer != null && <div className="mx-dialog__footer">{footer}</div>}
+    </dialog>
+  );
+}
+
+export interface TooltipProps extends React.ComponentProps<"span"> {
+  label: string;
+}
+
+export function Tooltip({ label, className, ...props }: TooltipProps): React.ReactElement {
+  return <span data-mx-tip={label} className={cn("mx-tip", className)} {...props} />;
+}
+
+export function Switch({
+  className,
+  ...props
+}: React.ComponentProps<"input">): React.ReactElement {
+  return <input type="checkbox" role="switch" className={cn("mx-switch", className)} {...props} />;
+}
+
+export function Slider({
+  className,
+  ...props
+}: React.ComponentProps<"input">): React.ReactElement {
+  return <input type="range" className={cn("mx-range", className)} {...props} />;
+}
+
+export interface SpinnerProps extends React.ComponentProps<"span"> {
+  label?: string;
+}
+
+export function Spinner({
+  label = "Loading",
+  className,
+  ...props
+}: SpinnerProps): React.ReactElement {
+  return (
+    <span role="status" aria-label={label} className={cn("mx-spinner", className)} {...props} />
+  );
+}
+
+export function Skeleton({
+  className,
+  ...props
+}: React.ComponentProps<"div">): React.ReactElement {
+  return <div aria-hidden className={cn("mx-skeleton", className)} {...props} />;
+}
+
+export function ButtonGroup({
+  className,
+  ...props
+}: React.ComponentProps<"div">): React.ReactElement {
+  return <div role="group" className={cn("mx-btn-group", className)} {...props} />;
+}
+
+export function Kbd({
+  className,
+  ...props
+}: React.ComponentProps<"kbd">): React.ReactElement {
+  return <kbd className={cn("mx-kbd", className)} {...props} />;
+}
+
+export function Code({
+  className,
+  ...props
+}: React.ComponentProps<"code">): React.ReactElement {
+  return <code className={cn("mx-code", className)} {...props} />;
+}
+
+export function Pre({
+  className,
+  ...props
+}: React.ComponentProps<"pre">): React.ReactElement {
+  return <pre className={cn("mx-pre", className)} {...props} />;
+}
+
+export interface HeadingProps extends React.ComponentProps<"h2"> {
+  level?: 1 | 2 | 3;
+}
+
+export function Heading({
+  level = 2,
+  className,
+  ...props
+}: HeadingProps): React.ReactElement {
+  const Tag = `h${level}` as "h2";
+  return <Tag className={cn(`mx-h${level}`, className)} {...props} />;
+}
+
+export interface FieldProps extends React.ComponentProps<"div"> {
+  label?: React.ReactNode;
+  help?: React.ReactNode;
+  error?: React.ReactNode;
+}
+
+export function Field({
+  label,
+  help,
+  error,
+  children,
+  className,
+  ...props
+}: FieldProps): React.ReactElement {
+  return (
+    <div className={cn("mx-field", error != null && "mx-field--invalid", className)} {...props}>
+      {label != null && <span className="mx-label">{label}</span>}
+      {children}
+      {error != null ? (
+        <span className="mx-error">{error}</span>
+      ) : help != null ? (
+        <span className="mx-help">{help}</span>
+      ) : null}
+    </div>
+  );
 }

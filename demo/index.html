@@ -165,5 +165,96 @@
         <p class="mx-msg mx-cursor">waiting for file search to finish</p>
       </div>
     </div>
+    <h2>Generic — tabs &amp; disclosure</h2>
+    <div class="grid">
+      <div class="mx-tabs">
+        <div class="mx-tablist" role="tablist">
+          <button class="mx-tab" role="tab" aria-selected="true">General</button>
+          <button class="mx-tab" role="tab" aria-selected="false">Advanced</button>
+          <button class="mx-tab" role="tab" aria-selected="false" disabled>Locked</button>
+        </div>
+        <div class="mx-tabpanel" role="tabpanel">General settings and preferences.</div>
+      </div>
+      <div>
+        <details class="mx-disclosure" open>
+          <summary>Advanced settings</summary>
+          <div class="mx-disclosure__body">Port, timeouts, retries.</div>
+        </details>
+        <details class="mx-disclosure" style="margin-top: 6px">
+          <summary>Network options</summary>
+          <div class="mx-disclosure__body">Bind address and limits.</div>
+        </details>
+      </div>
+    </div>
+
+    <h2>Generic — dialog &amp; tooltip</h2>
+    <div class="row">
+      <button class="mx-btn" onclick="document.getElementById('mx-demo-dialog').showModal()">Open dialog</button>
+      <span class="mx-tip mx-text-cyan" data-mx-tip="Tooltips use data-mx-tip" tabindex="0">Hover / focus me</span>
+    </div>
+    <dialog id="mx-demo-dialog" class="mx-dialog">
+      <div class="mx-dialog__header">Confirm</div>
+      <div class="mx-dialog__body">Delete this item? This cannot be undone.</div>
+      <div class="mx-dialog__footer">
+        <button class="mx-btn" onclick="document.getElementById('mx-demo-dialog').close()">Cancel</button>
+        <button class="mx-btn mx-btn--danger" onclick="document.getElementById('mx-demo-dialog').close()">Delete</button>
+      </div>
+    </dialog>
+
+    <h2>Generic — switch &amp; slider</h2>
+    <div class="grid">
+      <div class="row">
+        <label class="mx-text-secondary"><input type="checkbox" class="mx-switch" checked /> Enabled</label>
+        <label class="mx-text-secondary"><input type="checkbox" class="mx-switch" /> Disabled</label>
+        <label class="mx-text-secondary"><input type="checkbox" class="mx-switch" disabled /> Locked</label>
+      </div>
+      <div>
+        <label class="mx-label">Volume</label>
+        <input type="range" class="mx-range" value="60" />
+      </div>
+    </div>
+
+    <h2>Generic — loading states</h2>
+    <div class="row">
+      <span class="mx-spinner"></span>
+      <span class="mx-text-secondary">Loading…</span>
+    </div>
+    <div style="max-width: 360px; margin-top: 8px">
+      <div class="mx-skeleton"></div>
+      <div class="mx-skeleton" style="width: 80%; margin-top: 4px"></div>
+      <div class="mx-skeleton" style="width: 55%; margin-top: 4px"></div>
+    </div>
+
+    <h2>Generic — button group, fields, keys &amp; code</h2>
+    <div class="grid">
+      <div>
+        <div class="mx-btn-group">
+          <button class="mx-btn">Left</button>
+          <button class="mx-btn">Center</button>
+          <button class="mx-btn">Right</button>
+        </div>
+        <p class="mx-text-secondary" style="margin: 10px 0 0">
+          Press <kbd class="mx-kbd">Ctrl</kbd> + <kbd class="mx-kbd">K</kbd>.
+          Colour token <code class="mx-code">--mx-cyan</code>.
+        </p>
+      </div>
+      <div class="mx-field">
+        <label class="mx-label">Username</label>
+        <input class="mx-input" value="cordt" />
+        <span class="mx-help">3–20 characters</span>
+      </div>
+      <div class="mx-field mx-field--invalid">
+        <label class="mx-label">Port</label>
+        <input class="mx-input" value="99999" />
+        <span class="mx-error">Must be 1024–65535</span>
+      </div>
+    </div>
+    <pre class="mx-pre"><code class="mx-code">.mx-btn { border: 1px solid #404040; }</code></pre>
+
+    <h2>Generic — typography</h2>
+    <div class="mx-h1">Heading 1</div>
+    <div class="mx-h2">Heading 2</div>
+    <div class="mx-h3">Heading 3</div>
+    <p class="mx-muted">Muted secondary text for supporting copy.</p>
   </body>
 </html>

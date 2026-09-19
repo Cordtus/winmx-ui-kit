@@ -490,6 +490,355 @@
 }
 
 /* =========================================================================
+   Generic primitives — not specific to file sharing
+   ========================================================================= */
+
+/* Tabs */
+.mx-tabs {
+  display: block;
+}
+.mx-tablist {
+  display: flex;
+  border-bottom: var(--mx-border-width) solid var(--mx-border);
+}
+.mx-tab {
+  padding: 4px 12px;
+  margin-bottom: -1px;
+  font: inherit;
+  font-size: var(--mx-font-size);
+  color: var(--mx-text-secondary);
+  background: transparent;
+  border: var(--mx-border-width) solid transparent;
+  border-bottom: none;
+  cursor: pointer;
+}
+.mx-tab:hover {
+  color: var(--mx-text);
+}
+.mx-tab[aria-selected="true"],
+.mx-tab.is-active {
+  color: var(--mx-cyan);
+  background: var(--mx-panel);
+  border-color: var(--mx-border);
+  border-bottom-color: var(--mx-panel);
+}
+.mx-tab:focus-visible {
+  outline: 1px solid var(--mx-focus);
+  outline-offset: -1px;
+}
+.mx-tab:disabled {
+  color: var(--mx-text-disabled);
+  cursor: not-allowed;
+}
+.mx-tabpanel {
+  padding: 8px;
+  background: var(--mx-panel);
+  border: var(--mx-border-width) solid var(--mx-border);
+  border-top: none;
+}
+
+/* Disclosure / accordion — native <details> */
+.mx-disclosure {
+  background: var(--mx-panel);
+  border: var(--mx-border-width) solid var(--mx-border);
+}
+.mx-disclosure > summary {
+  padding: 4px 8px;
+  color: var(--mx-text);
+  background: var(--mx-black);
+  cursor: pointer;
+  list-style: none;
+}
+.mx-disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+.mx-disclosure > summary::before {
+  content: "\25B8";
+  margin-right: 6px;
+  color: var(--mx-cyan);
+}
+.mx-disclosure[open] > summary::before {
+  content: "\25BE";
+}
+.mx-disclosure > summary:focus-visible {
+  outline: 1px solid var(--mx-focus);
+  outline-offset: -1px;
+}
+.mx-disclosure__body {
+  padding: 8px;
+  border-top: var(--mx-border-width) solid var(--mx-border);
+}
+
+/* Dialog — native <dialog> (use showModal()) */
+.mx-dialog {
+  min-width: 320px;
+  max-width: min(560px, 90vw);
+  padding: 0;
+  color: var(--mx-text);
+  background: var(--mx-panel);
+  border: var(--mx-border-width) solid var(--mx-border);
+}
+.mx-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.75);
+}
+.mx-dialog__header {
+  padding: 4px 8px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--mx-text-secondary);
+  background: var(--mx-black);
+  border-bottom: var(--mx-border-width) solid var(--mx-border);
+}
+.mx-dialog__body {
+  padding: 10px;
+}
+.mx-dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 8px;
+  border-top: var(--mx-border-width) solid var(--mx-border);
+}
+
+/* Tooltip — CSS only, via data-mx-tip attribute */
+.mx-tip {
+  position: relative;
+}
+.mx-tip[data-mx-tip]::after {
+  content: attr(data-mx-tip);
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translate(-50%, -4px);
+  padding: 2px 6px;
+  font-size: 11px;
+  white-space: nowrap;
+  color: var(--mx-text);
+  background: var(--mx-black);
+  border: var(--mx-border-width) solid var(--mx-border);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.1s ease;
+  z-index: 50;
+}
+.mx-tip:hover::after,
+.mx-tip:focus-visible::after {
+  opacity: 1;
+}
+
+/* Switch — square, WinMX-style */
+.mx-switch {
+  position: relative;
+  display: inline-block;
+  width: 32px;
+  height: 16px;
+  margin: 0;
+  vertical-align: middle;
+  appearance: none;
+  background: var(--mx-black);
+  border: var(--mx-border-width) solid var(--mx-border);
+  border-radius: 0;
+  cursor: pointer;
+}
+.mx-switch::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 12px;
+  height: 12px;
+  background: var(--mx-text-disabled);
+  transition: left 0.1s ease, background-color 0.1s ease;
+}
+.mx-switch:checked {
+  border-color: var(--mx-green);
+}
+.mx-switch:checked::after {
+  left: 17px;
+  background: var(--mx-green);
+}
+.mx-switch:focus-visible {
+  outline: 1px solid var(--mx-focus);
+  outline-offset: 1px;
+}
+.mx-switch:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Range slider */
+.mx-range {
+  width: 100%;
+  height: 14px;
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+.mx-range::-webkit-slider-runnable-track {
+  height: 4px;
+  background: var(--mx-black);
+  border: var(--mx-border-width) solid var(--mx-border);
+}
+.mx-range::-moz-range-track {
+  height: 4px;
+  background: var(--mx-black);
+  border: var(--mx-border-width) solid var(--mx-border);
+}
+.mx-range::-webkit-slider-thumb {
+  width: 8px;
+  height: 14px;
+  margin-top: -6px;
+  appearance: none;
+  background: var(--mx-cyan);
+  border: none;
+  border-radius: 0;
+}
+.mx-range::-moz-range-thumb {
+  width: 8px;
+  height: 14px;
+  background: var(--mx-cyan);
+  border: none;
+  border-radius: 0;
+}
+.mx-range:focus-visible {
+  outline: 1px solid var(--mx-focus);
+  outline-offset: 1px;
+}
+
+/* Spinner */
+.mx-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  border: 2px solid var(--mx-border);
+  border-top-color: var(--mx-cyan);
+  border-radius: 50%;
+  animation: mx-spin 0.8s linear infinite;
+}
+@keyframes mx-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Skeleton */
+.mx-skeleton {
+  display: block;
+  height: 1em;
+  background: var(--mx-panel);
+  border: var(--mx-border-width) solid var(--mx-border-subtle);
+  animation: mx-pulse 1.2s ease-in-out infinite;
+}
+@keyframes mx-pulse {
+  50% {
+    background: var(--mx-border-subtle);
+  }
+}
+
+/* Button group */
+.mx-btn-group {
+  display: inline-flex;
+}
+.mx-btn-group > .mx-btn {
+  margin-left: -1px;
+  border-radius: 0;
+}
+.mx-btn-group > .mx-btn:first-child {
+  margin-left: 0;
+  border-top-left-radius: var(--mx-radius);
+  border-bottom-left-radius: var(--mx-radius);
+}
+.mx-btn-group > .mx-btn:last-child {
+  border-top-right-radius: var(--mx-radius);
+  border-bottom-right-radius: var(--mx-radius);
+}
+.mx-btn-group > .mx-btn:hover,
+.mx-btn-group > .mx-btn:focus-visible {
+  position: relative;
+  z-index: 1;
+}
+
+/* Form field, help and error */
+.mx-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.mx-help {
+  font-size: 11px;
+  color: var(--mx-text-disabled);
+}
+.mx-error {
+  font-size: 11px;
+  color: var(--mx-red);
+}
+.mx-field--invalid .mx-input,
+.mx-field--invalid .mx-select,
+.mx-field--invalid .mx-textarea {
+  border-color: var(--mx-red);
+}
+
+/* Keyboard / code / typography */
+.mx-kbd {
+  display: inline-block;
+  padding: 0 5px;
+  font-family: var(--mx-font-mono);
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--mx-text);
+  background: var(--mx-black);
+  border: var(--mx-border-width) solid var(--mx-border);
+  border-bottom-width: 2px;
+  border-radius: var(--mx-radius);
+}
+.mx-code {
+  padding: 0 4px;
+  font-family: var(--mx-font-mono);
+  font-size: 12px;
+  color: var(--mx-green);
+  background: var(--mx-black);
+  border: var(--mx-border-width) solid var(--mx-border-subtle);
+}
+.mx-pre {
+  padding: 8px;
+  overflow: auto;
+  font-family: var(--mx-font-mono);
+  font-size: 12px;
+  color: var(--mx-text);
+  background: var(--mx-black);
+  border: var(--mx-border-width) solid var(--mx-border);
+}
+.mx-pre .mx-code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.mx-h1 {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.2;
+  color: var(--mx-text);
+}
+.mx-h2 {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.25;
+  color: var(--mx-text);
+}
+.mx-h3 {
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1.3;
+  color: var(--mx-text);
+}
+.mx-muted {
+  color: var(--mx-text-secondary);
+}
+
+/* =========================================================================
    Colour helpers (for vanilla use; Tailwind/Panda users have utilities)
    ========================================================================= */
 

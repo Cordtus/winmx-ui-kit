@@ -1,7 +1,7 @@
 {
-  "name": "winmx-theme-kit",
+  "name": "winmx-ui-kit",
   "version": "0.1.0",
-  "description": "WinMX-inspired dark/neon theme and UI element kit for Tailwind CSS and PandaCSS/park-ui.",
+  "description": "WinMX UI Kit — dark/neon theme and UI elements (generic + file-sharing) for Tailwind CSS, PandaCSS/park-ui and React.",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,

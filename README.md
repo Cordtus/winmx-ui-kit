@@ -1,20 +1,24 @@
-# WinMX Theme Kit
+# WinMX UI Kit
 
 A drop-in dark/neon theme and UI element kit modelled on the classic **WinMX**
 look: pure black content areas, near-white text, and fully saturated colors
-reserved for *information* — never decoration.
+reserved for *information* — never decoration. Generic primitives (tabs,
+dialog, switch, slider, fields, …) plus file-sharing-specific elements
+(search results, transfers, chat, connection status).
 
 - No build step, no runtime dependency.
 - Works with plain CSS, Tailwind CSS v3/v4, and PandaCSS / park-ui.
 - Compact controls, 1px borders, square-ish corners, monospace data.
 
-![WinMX theme kit overview](screenshots/overview.png)
+![WinMX UI Kit overview](screenshots/overview.png)
 
 ## Screenshots
 
 | Controls | Search results & transfers | Chat |
 | --- | --- | --- |
 | ![Buttons, inputs, progress, badges and alerts](screenshots/controls.png) | ![Search results, network status and transfers](screenshots/listings.png) | ![Chat window](screenshots/chat.png) |
+
+![Generic primitives: tabs, disclosure, dialog, switch, slider, fields, keys and typography](screenshots/generic.png)
 
 ```
 src/winmx.css            core tokens + element/component classes
@@ -31,7 +35,7 @@ demo/index.html          every element, rendered
 **Plain CSS / any framework**
 
 ```html
-<link rel="stylesheet" href="winmx-theme-kit/winmx.css" />
+<link rel="stylesheet" href="winmx-ui-kit/winmx.css" />
 <div class="mx-app"> ... </div>
 ```
 
@@ -42,7 +46,7 @@ selection and scrollbar styling. Nothing touches bare elements outside it.
 
 ```css
 /* your entry css */
-@import "winmx-theme-kit/tailwind/theme";
+@import "winmx-ui-kit/tailwind/theme";
 ```
 
 Then use `bg-mx-panel`, `text-mx-cyan`, `border-mx-border`, `font-mx-mono`, etc.
@@ -50,14 +54,14 @@ Then use `bg-mx-panel`, `text-mx-cyan`, `border-mx-border`, `font-mx-mono`, etc.
 **Tailwind v3**
 
 ```js
-const winmx = require("winmx-theme-kit/tailwind/preset");
+const winmx = require("winmx-ui-kit/tailwind/preset");
 module.exports = { presets: [winmx], content: ["./src/**/*.{ts,tsx,html}"] };
 ```
 
 **PandaCSS / park-ui**
 
 ```ts
-import { winmxPreset } from "winmx-theme-kit/panda/preset";
+import { winmxPreset } from "winmx-ui-kit/panda/preset";
 export default defineConfig({ presets: [winmxPreset], /* ... */ });
 ```
 
@@ -73,7 +77,7 @@ ancestor.
 
 ```tsx
 import { WinMXApp, Button, Input, Panel, PanelHeader, PanelBody,
-         Progress, Badge, Alert, Status, Chat, ChatMessage } from "winmx-theme-kit/react";
+         Progress, Badge, Alert, Status, Chat, ChatMessage } from "winmx-ui-kit/react";
 
 <WinMXApp>
   <Panel>
@@ -88,11 +92,15 @@ import { WinMXApp, Button, Input, Panel, PanelHeader, PanelBody,
 </WinMXApp>
 ```
 
-Exports: `WinMXApp`, `Button`, `Input`, `Textarea`, `Select`, `Label`,
-`Checkbox`, `Panel`/`PanelHeader`/`PanelBody`, `Progress`, `Badge`, `Alert`,
-`Status`, `Divider`, `Table`/`THead`/`TBody`/`Tr`/`Th`/`Td`, `Chat`/`ChatMessage`,
-plus the `cn` helper. TSX source; Vite/Next handle it (Next: add the package to
-`transpilePackages`). React `>=18` is an optional peer dependency.
+Exports — general: `WinMXApp`, `Button`, `ButtonGroup`, `Input`, `Textarea`,
+`Select`, `Label`, `Checkbox`, `Switch`, `Slider`, `Field`, `Panel`/`PanelHeader`/
+`PanelBody`, `Tabs`, `Disclosure`, `Dialog`, `Tooltip`, `Progress`, `Spinner`,
+`Skeleton`, `Badge`, `Alert`, `Status`, `Divider`, `Kbd`, `Code`, `Pre`,
+`Heading`, plus the `cn` helper. File-sharing: `Table`/`THead`/`TBody`/`Tr`/`Th`/
+`Td`, `Chat`/`ChatMessage`. TSX source; Vite/Next handle it (Next: add the
+package to `transpilePackages`). React `>=18` is an optional peer dependency;
+`Tabs` and `Dialog` are the only stateful components and the module is marked
+`"use client"`.
 
 **Using it as the only theme**
 
@@ -125,9 +133,22 @@ plus the `cn` helper. TSX source; Vite/Next handle it (Next: add the package to
 
 ## Components
 
-- **Buttons** — `.mx-btn`, `--primary`, `--danger`, `--ghost`, `--sm`
-- **Inputs** — `.mx-input`, `.mx-select`, `.mx-textarea`, `.mx-label`
+**General primitives**
+
+- **Buttons** — `.mx-btn`, `--primary`, `--danger`, `--ghost`, `--sm`; group via `.mx-btn-group`
+- **Inputs** — `.mx-input`, `.mx-select`, `.mx-textarea`, `.mx-label`, `.mx-switch`, `.mx-range`
+- **Form fields** — `.mx-field`, `--invalid`, `.mx-help`, `.mx-error`
 - **Panels** — `.mx-panel`, `.mx-panel__header`, `.mx-panel__body`
+- **Tabs** — `.mx-tabs`, `.mx-tablist`, `.mx-tab[aria-selected]`, `.mx-tabpanel`
+- **Disclosure** — `.mx-disclosure` (native `<details>`), `.mx-disclosure__body`
+- **Dialog** — `.mx-dialog` (native `<dialog>`), `__header`, `__body`, `__footer`
+- **Tooltip** — `.mx-tip` + `data-mx-tip`
+- **Loading** — `.mx-spinner`, `.mx-skeleton`
+- **Text** — `.mx-h1|h2|h3`, `.mx-muted`, `.mx-kbd`, `.mx-code`, `.mx-pre`, `.mx-link`
+- **Helpers** — `.mx-text-*`, `.mx-mono`, `.mx-bevel`, `.mx-divider`
+
+**File-sharing elements**
+
 - **Tables** — `.mx-table` (+ `is-selected` rows, `.mx-file`, `.mx-size`, `.mx-bitrate`, `.mx-sources`, `.mx-meta`, `.mx-num`)
 - **Search** — `.mx-result--incomplete|extrasource|downloading|unavailable`
 - **Progress** — `.mx-progress` + `__fill`, `--cyan|yellow|red`, `--indeterminate`
@@ -135,7 +156,6 @@ plus the `cn` helper. TSX source; Vite/Next handle it (Next: add the package to
 - **Transfers** — `.mx-xfer--download|upload|queued|connecting|paused|complete|failed`
 - **Chat** — `.mx-chat`, `.mx-msg--user|system|join|warning|error|link|mention|time|topic|bot|admin`, blinking `.mx-cursor`
 - **Badges/alerts** — `.mx-badge--*`, `.mx-alert--success|info|warning|notice|danger`
-- **Helpers** — `.mx-text-*`, `.mx-mono`, `.mx-bevel`, `.mx-divider`
 
 See `demo/index.html` for each in context.
 
@@ -150,5 +170,5 @@ See `demo/index.html` for each in context.
 ## Checks
 
 ```
-npm test   # verifies no palette drift across the three adapters
+npm test   # verifies no palette drift across the four token-bearing files
 ```
