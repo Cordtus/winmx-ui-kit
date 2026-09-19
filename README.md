@@ -10,15 +10,28 @@ dialog, switch, slider, fields, …) plus file-sharing-specific elements
 - Works with plain CSS, Tailwind CSS v3/v4, and PandaCSS / park-ui.
 - Compact controls, 1px borders, square-ish corners, monospace data.
 
-![WinMX UI Kit overview](screenshots/overview.png)
-
 ## Screenshots
 
-| Controls | Search results & transfers | Chat |
-| --- | --- | --- |
-| ![Buttons, inputs, progress, badges and alerts](screenshots/controls.png) | ![Search results, network status and transfers](screenshots/listings.png) | ![Chat window](screenshots/chat.png) |
+**Palette** — the saturated WinMX colours on true black.
 
-![Generic primitives: tabs, disclosure, dialog, switch, slider, fields, keys and typography](screenshots/generic.png)
+![Colour palette swatches](screenshots/palette.png)
+
+**Controls** — buttons, inputs, progress, badges and alerts.
+
+![Buttons, inputs, progress bars, badges and alerts](screenshots/controls.png)
+
+**Generic primitives** — tabs, disclosure, dialog, tooltip, switch, slider, loading states, form fields, keys/code and typography.
+
+![Generic primitives: tabs, disclosure, dialog, switch, slider, fields, keys and typography](screenshots/generic-primitives.png)
+
+**Search & transfers** — result states, network status and transfer states.
+
+![Search results, network status and transfers](screenshots/search-and-transfers.png)
+
+**Chat** — user, system, join/leave, warning, error, link, mention and timestamp colours.
+
+![Chat window with coloured message kinds](screenshots/chat.png)
+
 
 ```
 src/winmx.css            core tokens + element/component classes
